@@ -1,0 +1,149 @@
+﻿
+<style>
+    :root {
+        --primary: #4f46e5;       /* Modern Indigo */
+        --primary-hover: #4338ca;
+        --bg-body: #f8fafc;       /* Light Slate */
+        --text-main: #1e293b;
+        --text-muted: #64748b;
+        --white: #ffffff;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-main);
+        padding: 40px;
+        line-height: 1.5;
+    }
+
+    /* Container for the Header Section */
+    .header-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 30px;
+    }
+
+    .title-section h2 {
+        margin: 0;
+        font-size: 1.85rem;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        color: var(--text-main);
+    }
+
+    .title-section p {
+        margin: 5px 0 0 0;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+    }
+
+    /* Modern Minimalist Button */
+    .btn-download {
+        display: inline-flex;
+        align-items: center;
+        background-color: var(--primary);
+        color: var(--white);
+        text-decoration: none;
+        padding: 10px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+        transition: all 0.2s ease;
+    }
+
+    .btn-download:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+    }
+
+    /* Modern Table Design */
+    .table-container {
+        background: var(--white);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e2e8f0;
+    }
+
+    .modern-grid {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    .modern-grid thead {
+        background-color: #f1f5f9; /* Very light slate */
+    }
+
+    .modern-grid th {
+        padding: 16px 24px;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 700;
+        color: var(--text-muted);
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .modern-grid td {
+        padding: 16px 24px;
+        font-size: 0.9rem;
+        color: var(--text-main);
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    /* Hover effect on rows */
+    .modern-grid tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    /* Remove border from last row */
+    .modern-grid tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* PDF Printing Adjustments */
+    @media print {
+        body { padding: 0; background-color: white; }
+        .btn-download { display: none; }
+        .table-container { box-shadow: none; border: 1px solid #eee; }
+        .modern-grid thead { background-color: #f1f5f9 !important; -webkit-print-color-adjust: exact; }
+    }
+</style>
+
+<div class="header-wrapper">
+    <div class="title-section">
+        <h2>Customer Report</h2>
+        <p>Overview of registered client accounts</p>
+    </div>
+    <a href="/HandleBar/CustomerReportPdf?lang=en" class="btn-download" target="_blank">
+        Download PDF
+    </a>
+</div>
+
+<div class="table-container">
+    <table class="modern-grid">
+        <thead>
+            <tr>
+                <th>নাম</th>
+                <th>ফোন</th>
+                <th>ইমেইল</th>
+                <th>শহর</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each CustomerList}}
+            <tr>
+                <td style="font-weight: 600;">{{SCustName}}</td>
+                <td>{{SCustPhone}}</td>
+                <td style="color: var(--primary);">{{SCustEmail}}</td>
+                <td>{{SCustCity}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

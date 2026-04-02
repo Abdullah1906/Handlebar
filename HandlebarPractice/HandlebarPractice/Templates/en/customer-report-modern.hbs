@@ -1,0 +1,149 @@
+﻿<style>
+    /* 1. Modern Variables & Typography */
+    :root {
+        --primary: #4f46e5;       /* Indigo */
+        --primary-soft: #eef2ff;
+        --slate-700: #334155;
+        --slate-500: #64748b;
+        --slate-200: #e2e8f0;
+        --white: #ffffff;
+    }
+
+    body {
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f8fafc;
+        color: var(--slate-700);
+        padding: 40px;
+        margin: 0;
+    }
+
+    /* 2. Header Layout: Title Left, Button Right */
+    .report-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .title-section h2 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+        color: #0f172a;
+    }
+
+    .title-section p {
+        margin: 4px 0 0 0;
+        font-size: 14px;
+        color: var(--slate-500);
+    }
+
+    /* 3. Professional Button Styling */
+    .btn-pdf {
+        background-color: #ef4444; /* Modern Red */
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .btn-pdf:hover {
+        background-color: #dc2626;
+        transform: translateY(-1px);
+    }
+
+    /* 4. The Modern Grid (Card Style) */
+    .table-container {
+        background: var(--white);
+        border-radius: 10px;
+        border: 1px solid var(--slate-200);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        overflow: hidden; /* Keeps corners rounded */
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f1f5f9;
+        color: var(--slate-500);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 16px 24px;
+        border-bottom: 1px solid var(--slate-200);
+    }
+
+    td {
+        padding: 16px 24px;
+        font-size: 14px;
+        border-bottom: 1px solid #f8fafc;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    tr:hover {
+        background-color: #fcfcfd;
+    }
+
+    .customer-name {
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    .email-link {
+        color: var(--primary);
+        text-decoration: none;
+    }
+
+    /* 5. PDF Print Adjustments */
+    @media print {
+        body { padding: 0; background: white; }
+        .btn-pdf { display: none; } /* Hide button in the actual PDF */
+        .table-container { box-shadow: none; border: 1px solid #eee; }
+        th { background-color: #f1f5f9 !important; -webkit-print-color-adjust: exact; }
+    }
+</style>
+
+<div class="report-header">
+    <div class="title-section">
+        <h2>Customer Modern Report</h2>
+        <p>Generated on: {{formatDate GeneratedOn}}</p>
+    </div>
+    
+    <a href="/HandleBar/CustomerReportPdf?variant=modern" class="btn-pdf" target="_blank">
+        Download PDF Report
+    </a>
+</div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Phone</th>
+                <th>Email Address</th>
+                <th>City</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each CustomerList}}
+            <tr>
+                <td class="customer-name">{{SCustName}}</td>
+                <td>{{SCustPhone}}</td>
+                <td><span class="email-link">{{SCustEmail}}</span></td>
+                <td>{{SCustCity}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
